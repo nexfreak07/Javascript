@@ -1,24 +1,78 @@
-// Do it in JS Fiddle
+var input = document.getElementById("input");
 
-const myName = {
-	fistName : "Akash",
-  lastName : "Dasgupta"
+
+
+
+
+function getData(value){
+ console.log(value)
 }
 
-const printFullName = function(age){
-	 return this.fistName + " " + this.lastName + " " + age}
 
-const res1 = printFullName.apply(myName, [25]);
-console.log(res1)
+const debounce = (func, delay)=>{
+	let timer;
+	return function(...arguments){
+  	let context = this;
+    let args = arguments
+  	clearTimeout(timer);
+    timer = setTimeout(()=>{
+    	func.apply(context,args)
+    }, 300)
+  }
+}
 
 
-const res2 = printFullName.call(myName, 25)
+const betterFunction = debounce((event)=>{getData(event.target.value)}, 300);
 
-console.log(res2)
+console.log(betterFunction)
 
-// Bind Always Returns a New Function
+input.addEventListener("keyup", (e)=>{betterFunction(e)});
 
-const newFunc = printFullName.bind(myName, 25);
-const res3 = newFunc();
 
-console.log(res3)
+// The Alternative Best Approach
+
+var button = document.getElementById("input");
+
+
+
+const getData = (event) => {
+console.log(event.target.value);
+}
+
+/* const throttle = (func, delay)=>{
+let flag = true;
+
+return function(...arguments){
+
+let context = this;
+let args = arguments
+  if(flag){
+    flag = false;
+    func.apply(context,arguments);
+    setTimeout(()=>{
+      flag = true;
+    }, delay)
+  }
+}
+} */
+
+/* const better = throttle(getData, 1000) */
+
+const debounce2 = (fn ,delay)  => {
+
+
+let timer;
+return function(...arguments){
+let context = this;
+let args = arguments;
+clearTimeout(timer);
+
+timer = setTimeout(()=>{
+	fn.apply(context, arguments);
+}, delay)
+}
+}
+
+const devounced = debounce2(getData, 300)
+
+button.addEventListener("keyup", devounced)
