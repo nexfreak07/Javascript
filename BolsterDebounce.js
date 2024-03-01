@@ -68,7 +68,7 @@ let args = arguments;
 clearTimeout(timer);
 
 timer = setTimeout(()=>{
-	fn.apply(context, arguments);
+	fn.apply(context, args);
 }, delay)
 }
 }

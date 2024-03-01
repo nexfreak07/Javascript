@@ -1,24 +1,37 @@
+
+// Normal Way of calling
+let counter = 0; 
 const getData = () => {
-    console.log("API Calls")
+    console.log("API call made", counter++)
 }
 
+// Debouncing is the way so that we dont make frequest api calls hence its a way of optimising and not freezing the browser
+// We provide a delay, if anything happens we will make the call else we wont. 
+// Example - if i keep on presssing keys it wont call if i pause for 1s it will make an api call
 
-// Debounce method here is used to create a timer, so that if we pause till the delay an api call will be made
-// Else if we type anything the api call will be revoked by clear timeout
 
-// This is a optimisation technique which helps not to make unecessary api calls and avoids the browser to freeze
+// for that we need to have a function which is getData in optimised way lets call it better function.
 
-const debouce = (fn, delay)=>{
+
+
+
+
+// Now we will call this betterfunction in the HTML code
+
+// Lets create the debounced function. 
+
+const debounced = (fn, delay) => {
     let timer;
     return function(){
         let context = this;
-        let args = arguments;
+        let ar = arguments  // Dont use arguments = arguments
         clearTimeout(timer);
         timer = setTimeout(()=>{
-            fn.apply(context, args)
-        }, delay)
+            fn.apply(context, ar);
+        },delay)
     }
 }
 
 
-const betterFuction = debouce(getData, 1000);
+
+const betterFunction = debounced(getData, 1000);
