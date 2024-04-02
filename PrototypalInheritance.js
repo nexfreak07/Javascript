@@ -155,3 +155,40 @@ These questions cover a range of topics related to prototypal inheritance in Jav
 
 
 */
+
+
+
+
+//  Very Imp 
+
+
+class Car{
+	
+  constructor(make, model){
+  	this.make = make;
+    this.model = model;
+  }
+  
+  start(){
+  	console.log("Car", this.make, "with", this.model, "is starting")
+  }
+ 
+}
+
+
+
+// ---------> To add prototype to an object 
+
+/* let stopCar = {
+  stop(){
+  console.log("Car", this.make, "with", this.model, "is stopping")
+  }
+} */
+
+
+Car.prototype.stop= function(){
+	console.log("Car", this.make, "with", this.model, "is stopping")
+}
+let myCar = new Car("Honda", "H1")
+myCar.start();
+myCar.stop();
